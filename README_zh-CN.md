@@ -74,6 +74,8 @@ conda activate bridge
 
 本仓库不直接分发数据文件。请按以下结构放置处理后的数据：
 
+处理后的数据集下载：[夸克网盘](https://pan.quark.cn/s/ab2edddf790c)。
+
 ```text
 data/
 ├── baby/

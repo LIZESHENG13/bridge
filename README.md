@@ -79,6 +79,8 @@ the remaining packages are listed in `requirements.txt`.
 Dataset files are not distributed in this repository. Organize the processed
 datasets as follows:
 
+Download the processed datasets from [Quark Drive](https://pan.quark.cn/s/ab2edddf790c).
+
 ```text
 data/
 ├── baby/
