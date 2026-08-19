@@ -65,14 +65,16 @@ class DualFrequencyEncoder(GeneralRecommender):
         nn.init.xavier_uniform_(self.item_id_embedding.weight)
 
         dataset_path = os.path.abspath(config['data_path'] + config['dataset'])
-        #self.user_graph_dict = np.load(os.path.join(dataset_path, config['user_graph_dict_file']),
-        #                               allow_pickle=True).item()
-
-        self.use_user_graph = False  # default flag
-
+        self.user_graph_dict = None
+        self.use_user_graph = False
         user_emb_path = os.path.join(dataset_path, config['user_emb_file'])
+        user_graph_path = os.path.join(dataset_path, config['user_graph_dict_file'])
 
-        if os.path.isfile(user_emb_path):
+        # The optional user graph branch needs both artifacts.  A standalone
+        # user_emb.npy is not enough for topk_sample(), which consumes the
+        # precomputed neighbor dictionary.
+        if os.path.isfile(user_emb_path) and os.path.isfile(user_graph_path):
+            self.user_graph_dict = np.load(user_graph_path, allow_pickle=True).item()
             user_emb = np.load(user_emb_path, allow_pickle=True)
             self.user_emb = torch.from_numpy(user_emb).to(self.device)
             print(">>>>self.user_emb.shape=", self.user_emb.shape)
@@ -81,8 +83,10 @@ class DualFrequencyEncoder(GeneralRecommender):
             self.user_adj = user_adj
 
             self.use_user_graph = True
+            print(">>>> Loaded optional user graph artifacts")
+        elif os.path.isfile(user_emb_path):
+            print(">>>> user_graph_dict_file not found, skip optional user graph: ", user_graph_path)
         else:
-            self.use_user_graph = False
             print(f">>>> user_emb_file not found, skip loading: {user_emb_path}")
 
         mm_adj_file = os.path.join(dataset_path, 'mm_adj_{}.pt'.format(self.knn_k))

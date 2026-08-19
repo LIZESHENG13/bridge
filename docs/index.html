@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BRIDGE uses behavior-guided residual integration to calibrate multimodal recommendations inside the base candidate set.">
+  <meta property="og:title" content="BRIDGE: Behavior-Guided Residual Integration with Dual-Frequency Graph Evidence">
+  <meta property="og:description" content="A candidate-calibrated multimodal recommendation framework accepted at CIKM 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/framework.png">
+  <meta name="theme-color" content="#f7f8f4">
+  <title>BRIDGE | CIKM 2026</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" aria-label="Primary navigation">
+    <div class="nav-shell">
+      <a class="wordmark" href="#top" aria-label="BRIDGE home">BRIDGE</a>
+      <nav class="nav-links" aria-label="Page sections">
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#analysis">Analysis</a>
+        <a href="#citation">Citation</a>
+      </nav>
+      <a class="nav-code" href="https://github.com/LIZESHENG13/bridge" target="_blank" rel="noreferrer">Code</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="paper-title">
+      <div class="hero-backdrop" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="venue"><span>CIKM 2026</span> Full Research Paper</p>
+        <h1 id="paper-title"><strong>BRIDGE</strong>: Behavior-Guided Residual Integration with Dual-Frequency Graph Evidence</h1>
+        <p class="hero-thesis">Let multimodal evidence retrieve plausible items. Let behavior evidence decide their local order.</p>
+
+        <div class="authors" aria-label="Authors">
+          <a href="mailto:2022111515@stu.sufe.edu.cn">Zesheng Li</a>
+          <a href="mailto:166353314@qq.com">Chengchang Pan<sup>*</sup></a>
+          <a href="mailto:hgqi@ucas.ac.cn">Honggang Qi<sup>*</sup></a>
+        </div>
+        <p class="affiliation">University of the Chinese Academy of Sciences &nbsp; <span>* Corresponding authors</span></p>
+
+        <div class="hero-actions" aria-label="Paper resources">
+          <a class="button button-primary" href="assets/bridge-paper.pdf">Paper</a>
+          <a class="button button-secondary" href="https://github.com/LIZESHENG13/bridge" target="_blank" rel="noreferrer">Code</a>
+          <button class="button button-tertiary" type="button" data-copy-citation>Cite</button>
+        </div>
+
+        <div class="hero-finding">
+          <span class="finding-label">Core finding</span>
+          <p>Global score correction can distort the catalog. Restricting behavior-guided residuals to the base top-<i>K</i> candidates improves ranking while preserving the backbone.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-intro" aria-labelledby="overview-title">
+      <div class="section-shell intro-grid">
+        <div>
+          <p class="eyebrow">Overview</p>
+          <h2 id="overview-title">Recommendation evidence should have a scope.</h2>
+        </div>
+        <div class="abstract-copy">
+          <p>Multimodal recommendation combines visual, textual, and collaborative signals, but stronger cross-view alignment does not always improve ranking. Our diagnostics show an effective range: moderate alignment helps, while stronger alignment suppresses recommendation-specific variation.</p>
+          <p>BRIDGE separates retrieval from local correction. A dual-frequency graph encoder builds the base ranking, training-only co-user overlap becomes signed behavior evidence, and the residual is applied only inside the base candidate set.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section method-section" id="method" aria-labelledby="method-title">
+      <div class="section-shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Method</p>
+            <h2 id="method-title">Retrieve broadly. Calibrate locally.</h2>
+          </div>
+          <p>BRIDGE keeps multimodal representation learning and behavior-guided score correction in distinct, testable roles.</p>
+        </div>
+
+        <figure class="framework-figure">
+          <a href="assets/framework.png" target="_blank" aria-label="Open the BRIDGE framework figure at full resolution">
+            <img src="assets/framework.png" alt="BRIDGE architecture with multimodal graph encoding, dual-frequency base ranking, and behavior-guided candidate calibration" width="5119" height="2560">
+          </a>
+          <figcaption>BRIDGE first constructs the base ranking with DFGE, then uses BEN evidence to authorize CRI corrections only within the selected candidate set.</figcaption>
+        </figure>
+
+        <div class="module-grid" aria-label="BRIDGE modules">
+          <article class="module module-dfge">
+            <p class="module-index">01</p>
+            <h3>DFGE</h3>
+            <p>Graph-smoothed ID, image, and text channels are separated into representation-spectral bands and fused into the base ranking geometry.</p>
+          </article>
+          <article class="module module-ben">
+            <p class="module-index">02</p>
+            <h3>BEN</h3>
+            <p>Training-only co-user overlap is aggregated over each user history and normalized into signed candidate evidence.</p>
+          </article>
+          <article class="module module-cri">
+            <p class="module-index">03</p>
+            <h3>CRI</h3>
+            <p>The evidence-weighted residual changes scores only inside the detached base top-<i>K</i> set during both training and inference.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section results-section" id="results" aria-labelledby="results-title">
+      <div class="section-shell">
+        <div class="section-heading results-heading">
+          <div>
+            <p class="eyebrow">Results</p>
+            <h2 id="results-title">Consistent gains across three Amazon domains.</h2>
+          </div>
+          <p>All methods use the same processed splits, BEIT3 features, and full-sort protocol. Competitive results are averaged over five seeds.</p>
+        </div>
+
+        <div class="dataset-tabs" data-tabs>
+          <div class="tab-list" role="tablist" aria-label="Dataset results">
+            <button type="button" role="tab" aria-selected="true" aria-controls="panel-baby" id="tab-baby" tabindex="0" data-tab="baby">Baby</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="panel-sports" id="tab-sports" tabindex="-1" data-tab="sports">Sports</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="panel-electronics" id="tab-electronics" tabindex="-1" data-tab="electronics">Electronics</button>
+          </div>
+
+          <div class="result-panel is-active" id="panel-baby" role="tabpanel" aria-labelledby="tab-baby" data-panel="baby">
+            <div class="metric-block">
+              <p class="metric-name">Recall@20</p>
+              <p class="metric-value">0.1128</p>
+              <p class="metric-gain">+3.6% over the best baseline</p>
+            </div>
+            <div class="metric-block">
+              <p class="metric-name">NDCG@20</p>
+              <p class="metric-value">0.0525</p>
+              <p class="metric-gain">+8.5% over the best baseline</p>
+            </div>
+            <p class="panel-note">A smaller but stable gain in the densest of the three evaluated domains.</p>
+          </div>
+
+          <div class="result-panel" id="panel-sports" role="tabpanel" aria-labelledby="tab-sports" data-panel="sports" hidden>
+            <div class="metric-block">
+              <p class="metric-name">Recall@20</p>
+              <p class="metric-value">0.1262</p>
+              <p class="metric-gain">+6.3% over the best baseline</p>
+            </div>
+            <div class="metric-block">
+              <p class="metric-name">NDCG@20</p>
+              <p class="metric-value">0.0594</p>
+              <p class="metric-gain">+10.4% over the best baseline</p>
+            </div>
+            <p class="panel-note">The strongest balanced improvement across recall and top-ranked ordering.</p>
+          </div>
+
+          <div class="result-panel" id="panel-electronics" role="tabpanel" aria-labelledby="tab-electronics" data-panel="electronics" hidden>
+            <div class="metric-block">
+              <p class="metric-name">Recall@20</p>
+              <p class="metric-value">0.0778</p>
+              <p class="metric-gain">+7.3% over the best baseline</p>
+            </div>
+            <div class="metric-block">
+              <p class="metric-name">NDCG@20</p>
+              <p class="metric-value">0.0385</p>
+              <p class="metric-gain">+14.9% over the best baseline</p>
+            </div>
+            <p class="panel-note">Candidate-local calibration is most useful in this sparse, popularity-skewed domain.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap" tabindex="0" aria-label="Main results table, horizontally scrollable on small screens">
+          <table>
+            <caption>Main comparison against the strongest baseline in each domain.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Dataset</th>
+                <th scope="col">Best baseline R@20</th>
+                <th scope="col">BRIDGE R@20</th>
+                <th scope="col">Gain</th>
+                <th scope="col">Best baseline N@20</th>
+                <th scope="col">BRIDGE N@20</th>
+                <th scope="col">Gain</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Baby</th><td>0.1089</td><td class="best">0.1128</td><td>+3.6%</td><td>0.0484</td><td class="best">0.0525</td><td>+8.5%</td></tr>
+              <tr><th scope="row">Sports</th><td>0.1187</td><td class="best">0.1262</td><td>+6.3%</td><td>0.0538</td><td class="best">0.0594</td><td>+10.4%</td></tr>
+              <tr><th scope="row">Electronics</th><td>0.0725</td><td class="best">0.0778</td><td>+7.3%</td><td>0.0335</td><td class="best">0.0385</td><td>+14.9%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section analysis-section" id="analysis" aria-labelledby="analysis-title">
+      <div class="section-shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Mechanism analysis</p>
+            <h2 id="analysis-title">What actually drives the improvement?</h2>
+          </div>
+          <p>The controls support a qualified conclusion: candidate restriction and behavior evidence do most of the work; spectral routing provides a smaller complementary gain.</p>
+        </div>
+
+        <div class="ablation-layout">
+          <div class="ablation-list" aria-label="Amazon Baby Recall at 20 ablations">
+            <div class="ablation-row is-full">
+              <div><strong>BRIDGE</strong><span>Full model</span></div>
+              <div class="ablation-track"><span style="width: 100%"></span></div>
+              <strong>0.1128</strong>
+            </div>
+            <div class="ablation-row">
+              <div><strong>No frequency decomposition</strong><span>Equal-capacity routing</span></div>
+              <div class="ablation-track"><span style="width: 98.4%"></span></div>
+              <strong>0.1110</strong>
+            </div>
+            <div class="ablation-row">
+              <div><strong>Global correction</strong><span>Residual reaches the catalog</span></div>
+              <div class="ablation-track"><span style="width: 96.8%"></span></div>
+              <strong>0.1092</strong>
+            </div>
+            <div class="ablation-row">
+              <div><strong>No top-<i>K</i> calibration</strong><span>Candidate scope removed</span></div>
+              <div class="ablation-track"><span style="width: 90.9%"></span></div>
+              <strong>0.1025</strong>
+            </div>
+            <div class="ablation-row">
+              <div><strong>No behavior evidence</strong><span>BEN removed</span></div>
+              <div class="ablation-track"><span style="width: 90.1%"></span></div>
+              <strong>0.1016</strong>
+            </div>
+          </div>
+
+          <aside class="analysis-takeaway">
+            <p class="takeaway-number">0.0018</p>
+            <h3>Complementary spectral gain</h3>
+            <p>The SVD split is not the sole driver. Gram, DCT, and random bases stay close, so BRIDGE claims a stable structural separation, not superiority of one exact basis.</p>
+          </aside>
+        </div>
+
+        <div class="diagnostic-grid">
+          <figure>
+            <img src="assets/frequency-diagnostic.png" alt="Cross-view agreement is highest in the low band, while ranking signal is stronger in the complete and high-band representations" width="872" height="242" loading="lazy">
+            <figcaption>Low-frequency evidence is more consistent across views, while later bands retain more private ranking signal.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/candidate-calibration.png" alt="Behavior evidence increases the candidate coefficient, score correction, and local rank promotion" width="1100" height="384" loading="lazy">
+            <figcaption>Higher BEN evidence opens CRI, increases the local correction, and promotes supported candidates.</figcaption>
+          </figure>
+          <figure class="diagnostic-wide">
+            <img src="assets/exposure-shift.png" alt="BRIDGE lowers head-item exposure while improving recall across head, mid, tail, and cold item strata" width="1104" height="387" loading="lazy">
+            <figcaption>BRIDGE improves recall across popularity strata while reducing concentration on head items.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="repro-section" aria-labelledby="repro-title">
+      <div class="section-shell repro-shell">
+        <div>
+          <p class="eyebrow">Reproducibility</p>
+          <h2 id="repro-title">A controlled evaluation path.</h2>
+        </div>
+        <dl class="repro-facts">
+          <div><dt>Datasets</dt><dd>3 Amazon domains</dd></div>
+          <div><dt>Main results</dt><dd>5 random seeds</dd></div>
+          <div><dt>Reference hardware</dt><dd>1 x RTX 4090, 24 GB</dd></div>
+          <div><dt>Behavior graph</dt><dd>Training split only</dd></div>
+        </dl>
+        <a class="text-link" href="https://github.com/LIZESHENG13/bridge#train" target="_blank" rel="noreferrer">View training instructions <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </section>
+
+    <section class="section citation-section" id="citation" aria-labelledby="citation-title">
+      <div class="section-shell citation-shell">
+        <div>
+          <p class="eyebrow">Citation</p>
+          <h2 id="citation-title">Reference BRIDGE.</h2>
+          <p>Proceedings metadata: ACM DOI
+            <a href="https://doi.org/10.1145/3799682.3840961">10.1145/3799682.3840961</a>.</p>
+          <button class="button button-primary citation-copy" type="button" data-copy-citation>Copy BibTeX</button>
+        </div>
+        <pre id="bibtex"><code>@inproceedings{li2026bridge,
+  title     = {BRIDGE: Behavior-Guided Residual Integration with
+               Dual-Frequency Graph Evidence},
+  author    = {Li, Zesheng and Pan, Chengchang and Qi, Honggang},
+  booktitle = {Proceedings of the 35th ACM International Conference on
+               Information and Knowledge Management},
+  year      = {2026},
+  publisher = {ACM},
+  doi       = {10.1145/3799682.3840961},
+  isbn      = {979-8-4007-2539-5/2026/11}
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="section-shell footer-shell">
+      <p><strong>BRIDGE</strong> &middot; CIKM 2026 &middot; Rome, Italy</p>
+      <div>
+        <a href="assets/bridge-paper.pdf">Paper</a>
+        <a href="https://github.com/LIZESHENG13/bridge" target="_blank" rel="noreferrer">Code</a>
+        <a href="#top">Back to top</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite" aria-atomic="true" data-toast></div>
+  <script src="script.js"></script>
+</body>
+</html>

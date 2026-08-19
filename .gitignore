@@ -21,6 +21,4 @@ analysis_outputs/
 *.npy
 *.npz
 *.lmdb
-data/*
-!data/README.md
-
+/data
