@@ -10,7 +10,7 @@
 Zesheng Li, Chengchang Pan, and Honggang Qi<br>
 University of the Chinese Academy of Sciences
 
-[Paper (ACM DL)](https://doi.org/10.1145/3799682.3840961) | [PDF](docs/assets/bridge-paper.pdf) | [Project Page](docs/index.html) | [Model Code](src/models/bridge.py)
+[Paper (ACM DL)](https://doi.org/10.1145/3799682.3840961) | [PDF](docs/assets/bridge-paper.pdf) | [Project Page](https://lizesheng13.github.io/bridge/) | [Model Code](src/models/bridge.py)
 
 ## Overview
 

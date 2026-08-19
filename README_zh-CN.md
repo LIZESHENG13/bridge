@@ -11,7 +11,7 @@
 Zesheng Li、Chengchang Pan、Honggang Qi<br>
 中国科学院大学
 
-[论文（ACM DL）](https://doi.org/10.1145/3799682.3840961) | [PDF](docs/assets/bridge-paper.pdf) | [项目主页](docs/index.html) | [模型代码](src/models/bridge.py)
+[论文（ACM DL）](https://doi.org/10.1145/3799682.3840961) | [PDF](docs/assets/bridge-paper.pdf) | [项目主页](https://lizesheng13.github.io/bridge/) | [模型代码](src/models/bridge.py)
 
 ## 项目简介
 
