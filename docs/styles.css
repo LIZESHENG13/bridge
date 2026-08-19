@@ -415,8 +415,6 @@ h2 {
 
 .framework-figure img {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
 }
 
 figcaption {
